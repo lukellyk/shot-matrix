@@ -40,7 +40,7 @@ export function ClubDistanceMatrix() {
   const headerCellStyle = {
     fontWeight: 700,
     backgroundColor: 'var(--mantine-color-default-lighter)',
-    textAlign: 'center',
+    textAlign: 'center' as const,
     width: isMobile ? 'auto' : rem(120),
     padding: isMobile ? 'var(--mantine-spacing-xs)' : 'var(--mantine-spacing-sm)',
     fontSize: isMobile ? theme.fontSizes.sm : theme.fontSizes.md,
@@ -50,13 +50,13 @@ export function ClubDistanceMatrix() {
     fontWeight: 600,
     backgroundColor: 'var(--mantine-color-default-lighter)',
     width: isMobile ? 'auto' : rem(80),
-    textAlign: 'center',
+    textAlign: 'center' as const,
     padding: isMobile ? 'var(--mantine-spacing-xs)' : 'var(--mantine-spacing-sm)',
     fontSize: isMobile ? theme.fontSizes.sm : theme.fontSizes.md,
   };
   
   const dataCellStyle = {
-    textAlign: 'center',
+    textAlign: 'center' as const,
     width: isMobile ? 'auto' : rem(120),
     padding: isMobile ? 'var(--mantine-spacing-xs)' : 'var(--mantine-spacing-sm)',
     verticalAlign: 'middle',
@@ -108,7 +108,13 @@ export function ClubDistanceMatrix() {
                   {percentage === 100 ? (
                     <NumberInput
                       value={fullDistances[club] || 0}
-                      onChange={(value) => handleDistanceChange(value, club)}
+                      onChange={(value) => {
+                        // Convert string value to number or undefined to match handleDistanceChange parameter type
+                        const numericValue = typeof value === 'string' ? 
+                          (value === '' ? undefined : Number(value)) : 
+                          value;
+                        handleDistanceChange(numericValue, club);
+                      }}
                       min={0}
                       max={400}
                       placeholder="Enter distance"
@@ -116,7 +122,7 @@ export function ClubDistanceMatrix() {
                       w="100%"
                       styles={{
                         input: { 
-                          textAlign: 'center',
+                          textAlign: 'center' as const,
                           fontSize: isMobile ? theme.fontSizes.sm : theme.fontSizes.md,
                           height: isMobile ? rem(36) : 'auto'
                         },
