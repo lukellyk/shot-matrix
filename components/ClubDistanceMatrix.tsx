@@ -63,7 +63,6 @@ export function ClubDistanceMatrix() {
       <Table 
         striped 
         highlightOnHover 
-        withBorder 
         withColumnBorders
         style={{ 
           border: '1px solid var(--mantine-color-default-border)',

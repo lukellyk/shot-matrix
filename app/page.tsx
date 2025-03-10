@@ -6,8 +6,8 @@ export default function HomePage() {
   return (
     <>
       <GradientTitle />
-      <ColorSchemeToggle />
       <ClubDistanceMatrix />
+      <ColorSchemeToggle />
     </>
   );
 }
