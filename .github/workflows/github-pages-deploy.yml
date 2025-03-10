@@ -13,11 +13,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         
-      - name: Enable Yarn Berry
-        run: |
-          corepack enable
-          corepack prepare yarn@stable --activate
-        
       - name: Read .nvmrc
         run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_ENV
         
@@ -28,10 +23,10 @@ jobs:
           cache: 'yarn'
           
       - name: Install dependencies
-        run: yarn install
+        run: .yarn/releases/yarn-4.7.0.cjs install
         
       - name: Build application
-        run: yarn build
+        run: .yarn/releases/yarn-4.7.0.cjs build
         
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
