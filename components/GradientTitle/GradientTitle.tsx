@@ -1,20 +1,17 @@
 'use client';
 
-import { Title, Container } from '@mantine/core';
+import { Title, Container, Text } from '@mantine/core';
 
 export function GradientTitle() {
   return (
     <Container size="md" py="xl">
-      <Title
-        order={1}
-        ta="center" 
-        mb="xl" 
-        variant="gradient" 
-        gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
-        size="3rem"
-      >
+      <Title className={classes.title} ta="center" mt={100}>
+        Welcome to{' '}
+      <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>
         Shot Matrix
-      </Title>
+      </Text>
+    </Title>
     </Container>
   );
 }
+

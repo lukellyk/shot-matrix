@@ -1,11 +1,11 @@
 import { ColorSchemeToggle } from '../components/ColorSchemeToggle/ColorSchemeToggle';
 import { ClubDistanceMatrix } from '../components/ClubDistanceMatrix';
-import { GradientTitle } from '../components/GradientTitle';
+import { Welcome } from '@/components/Welcome/Welcome';
 
 export default function HomePage() {
   return (
     <>
-      <GradientTitle />
+      <Welcome />
       <ClubDistanceMatrix />
       <ColorSchemeToggle />
     </>
