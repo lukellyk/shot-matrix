@@ -13,6 +13,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         
+      - name: Enable Yarn Berry
+        run: |
+          corepack enable
+          corepack prepare yarn@stable --activate
+        
       - name: Read .nvmrc
         run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_ENV
         
@@ -23,7 +28,7 @@ jobs:
           cache: 'yarn'
           
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
         
       - name: Build application
         run: yarn build
