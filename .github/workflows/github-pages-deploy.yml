@@ -26,7 +26,7 @@ jobs:
         run: .yarn/releases/yarn-4.7.0.cjs install
         
       - name: Build application
-        run: .yarn/releases/yarn-4.7.0.cjs build
+        run: .yarn/releases/yarn-4.7.0.cjs run build
         
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
