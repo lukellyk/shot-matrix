@@ -16,5 +16,6 @@ export default withBundleAnalyzer({
   // Configuration for GitHub Pages deployment
   output: "export",
   basePath: "/shot-matrix",
+  transpilePackages: ['@mantine/core', '@mantine/hooks']
 });
 
