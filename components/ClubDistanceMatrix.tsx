@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import { Box, NumberInput, rem, Table, Text, useMantineTheme } from '@mantine/core';
 import { useViewportSize } from '@mantine/hooks';
+// Local storage key
+const STORAGE_KEY = 'club-distances';
 
 const PERCENTAGES = [100, 75, 50, 25];
 const CLUBS = [
@@ -23,13 +25,30 @@ const CLUBS = [
   '64',
 ];
 
+// Interface for the distances type
+interface ClubDistances {
+  [club: string]: number;
+}
+
 export function ClubDistanceMatrix() {
   const theme = useMantineTheme();
   const { width } = useViewportSize();
   const [isMobile, setIsMobile] = useState(false);
 
   // State to store the 100% distances for each club
-  const [fullDistances, setFullDistances] = useState<{ [key: string]: number }>({});
+  const [fullDistances, setFullDistances] = useState<ClubDistances>({});
+
+  // Load distances from localStorage on component mount
+  useEffect(() => {
+    try {
+      const savedDistances = localStorage.getItem(STORAGE_KEY);
+      if (savedDistances) {
+        setFullDistances(JSON.parse(savedDistances));
+      }
+    } catch (error) {
+      console.error('Error loading distances from localStorage:', error);
+    }
+  }, []);
 
   // Check if viewport is mobile size
   useEffect(() => {
@@ -43,10 +62,19 @@ export function ClubDistanceMatrix() {
 
   // Handle input change
   const handleDistanceChange = (value: number | undefined, club: string) => {
-    setFullDistances((prev) => ({
-      ...prev,
+    const newDistances = {
+      ...fullDistances,
       [club]: value || 0,
-    }));
+    };
+    
+    setFullDistances(newDistances);
+    
+    // Save to localStorage
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(newDistances));
+    } catch (error) {
+      console.error('Error saving distances to localStorage:', error);
+    }
   };
 
   // Styles for the component in Mantine v7
